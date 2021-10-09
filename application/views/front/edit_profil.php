@@ -106,8 +106,8 @@
 	$(document).ready(function() {
 		var province_id = $('#destination_provice').val();
 
-		$.get('<?php echo site_url('Keranjang/get_city_by_province/') ?>' + province_id, function(resp) {
-			// console.log(resp);
+		console.log(province_id);
+		$.get('<?php echo site_url('Pelanggan/get_city_by_province/') ?>' + province_id, function(resp) {
 			$('#destination_city').html(resp);
 		});
 	});
@@ -119,7 +119,7 @@
 		$('#destination_provice').change(function() {
 
 			var province_id = $('#destination_provice').val();
-			$.get('<?php echo site_url('Keranjang/get_city_by_province/') ?>' + province_id, function(resp) {
+			$.get('<?php echo site_url('Pelanggan/get_city_by_province/') ?>' + province_id, function(resp) {
 				// console.log(resp);
 				$('#destination_city').html(resp);
 			});

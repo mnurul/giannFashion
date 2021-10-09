@@ -271,7 +271,7 @@ class Keranjang extends CI_Controller
 		$opKirim = $this->cost($data['kota'], $data['weight'], $data['opKirim']);
 		// var subtotal = ((bahan * qty) + (harga * qty)) + parseInt(ongkos);
 		// var_dump($bahan, $opKirim, $ongkos, $data_produk->harga_digital, $data['jumlah'], $data['sub_total']);
-		// var_dump($data['size_product']);
+		// var_dump($kota->rajaongkir->results);
 		// die();
 
 		foreach ($province['rajaongkir']['results'] as $prov) {
@@ -283,11 +283,12 @@ class Keranjang extends CI_Controller
 		}
 
 
-		foreach ($kota['rajaongkir']['results'] as $kota1) {
+		// foreach ($kota['rajaongkir']['results'] as $kota1) {
+		foreach ($kota->rajaongkir->results as $kota1) {
 			// echo $kota['city_name'];
-			if ($data['kota'] == $kota1['city_id']) {
-				$data['kota'] = $kota1['city_name'];
-				$data['tipe_lokasi'] = $kota1['type'];
+			if ($data['kota'] == $kota1->city_id) {
+				$data['kota'] = $kota1->city_name;
+				$data['tipe_lokasi'] = $kota1->type;
 				// echo $update['kota'];
 				// $this->Model_app->update_data('keranjang', array('id' => $id), $update);
 			}

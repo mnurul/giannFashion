@@ -69,7 +69,7 @@
 	<div class="header-wrap">
 		<header>
 			<!-- LOGO -->
-			<a href="<?= base_url('assets/') ?>index.html">
+			<a href="<?= base_url('') ?>">
 				<figure class="logo" img style="width:200px;">
 					<!-- <h1></h1> -->
 					<img src="<?php echo base_url('assets/') ?>	images/logo1.png" style="width:140px; margin-top:-15px;">

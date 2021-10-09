@@ -30,14 +30,14 @@
 						<span class="currency"><?= number_format($produk->produk_harga, 0, '', '.') ?></span>
 						<span class="primary">Pesan !</span>
 					</a>
-					<a href="<?= base_url('login') ?>" class="button big primary ">
-						<!-- <span class="icon-present"></span> -->
+					<!-- <a href="<?= base_url('login') ?>" class="button big primary ">
+						<span class="icon-present"></span>
 						Masuk / Login
 					</a>
 					<a href="<?= base_url('register') ?>" class="button big secondary ">
-						<!-- <span class="icon-heart"></span> -->
+						<span class="icon-heart"></span>
 						Daftar / Register
-					</a>
+					</a> -->
 
 				<?php else : ?>
 					<a href="#" class="button big dark purchase" id="tmbl-pesan">

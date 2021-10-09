@@ -42,6 +42,8 @@ class Pelanggan extends CI_Controller
 
 		$data['data_edit'] = $this->Model_app->edit_data('pelanggan', array('plg_id' => $plg_id))->row();
 		$data['city'] = $this->get_city($data['data_edit']->plg_lokasi);
+		// var_dump($data['city'], $data['data_edit']->plg_lokasi);
+		// die();
 
 
 		$this->load->view('front/layouts/header', $data);
@@ -125,7 +127,7 @@ class Pelanggan extends CI_Controller
 
 		$plg_id = $this->session->userdata('plg_id');
 		$data['data_edit'] = $this->Model_app->edit_data('pelanggan', array('plg_id' => $plg_id))->row();
-		$data['lokasi'] = $data['data_keranjang']->plg_lokasi;
+		$data['lokasi'] = $data['data_edit']->plg_kota;
 		// '"' . '"'
 		foreach ($city->rajaongkir->results as $cty) {
 			if ($data['lokasi'] == $cty->city_name) {
@@ -206,25 +208,34 @@ class Pelanggan extends CI_Controller
 		$destination_city = $this->input->post('destination_city');
 
 		$province = $this->province();
-		foreach ($province->rajaongkir->results as $prov) {
+		foreach ($province['rajaongkir']['results'] as $prov) {
 			if ($destination_provice == $prov['province_id']) {
 				$data['plg_lokasi'] = $prov['province'];
+				$data = ['plg_lokasi' => $data['plg_lokasi']];
 				// echo $update['lokasi'];
 				// $this->Model_app->update_data('keranjang', array('id' => $id), $update);
+				$this->Model_app->update_data('pelanggan', array('plg_id' => $plg_id), $data);
 			}
 		}
 
-		$kota = $this->get_city($destination_city);
-
+		$kota = $this->get_city($destination_provice);
+		// var_dump($kota);
+		// die();
 
 		foreach ($kota->rajaongkir->results as $kota1) {
-			if ($destination_city == $kota1['city_id']) {
-				$data['plg_typeLokasi'] = $kota1['type'];
-				$data['plg_kota'] = $kota1['city_name'];
+			if ($destination_city == $kota1->city_id) {
+				$data['plg_typeLokasi'] = $kota1->type;
+				$data['plg_kota'] = $kota1->city_name;
+				$data = [
+					'plg_typeLokasi' => $data['plg_typeLokasi'],
+					'plg_kota' => $data['plg_kota']
+				];
+
+				$this->Model_app->update_data('pelanggan', array('plg_id' => $plg_id), $data);
 			}
 		}
+		// var_dump($data['plg_lokasi'], $data['plg_typeLokasi'], $data['plg_kota']);
 		$data['plg_telepon'] = $this->input->post('notelp');
-
 
 		if ($this->input->post('password') != '') {
 			$data['plg_password'] = md5($this->input->post('password'));
@@ -268,7 +279,8 @@ class Pelanggan extends CI_Controller
 
 
 
-
+		// var_dump($data);
+		// die();
 		$this->Model_app->update_data('pelanggan', array('plg_id' => $plg_id), $data);
 		$this->session->set_flashdata('berhasil', 'Data Berhasil diubah');
 		redirect(base_url('pelanggan/edit'));
